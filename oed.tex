@@ -465,19 +465,17 @@ The WebPPL program for the Context Theory model is shown in Fig.~\ref{fig:webppl
 
 
 \subsubsection{Independent Cue Model}
-The second classification model is the Independent Cue model, which assumes that the information entering category judgments can be derived from an 
+The second classification model is the Independent Cue model, which assumes that the information entering category judgments can be derived from an additive combindation of the information from the component cue dimensions. Prototype, average distance and versions of cue validity and frequency models fall under this domain. This is a prototype model that classifies probe items by comparing similarities with a representative prototype of the category
 
-built upon seven explicitly stated assumptions. For the purposes of computational experiment design, the two most relevant cognitive assumptions are that category judgements are based on the retrieval of exemplar information and that the overall similarity of two stimuli are comprised of multiplicative combinations between the similarity of retrival cues. These assumptions are formalized as a statistical model that uses a sum of product computation to determine the probability a stimulus will be associated with a given category.
+
+
 
 Formally, let the variables $x_A$ and $x_B$ represent the sets of stimuli that correspond to exemplars in category A and category B, respectively. Furthermore, let the variable $x_s$ represent the set of stimuli that correspond to the probe stimuli, which is mutually exclusive with the category exemplars. Let the random variable $Y \in \{A,B\}^{|x_s|}$ represent the probability that each probe stimuli is classified to belong in a corresponding category. Let the variable $c_i$ represent the $i$th cue dimension and let the variable $w_i$ represent the corresponding model weighting parameter. The probability that the Context Theory model will classify the $k$th probe stimuli, $x_{sk}$, in the category $y_k$ is then defined as:
 
-Math, equations, example
-
-This is a prototype model that classifies probe items by comparing similarities with a representative prototype of the category
-
 This is formalized as a rank-ordering model that uses an additive computation to determine the relative association with a given category
 
-where, 
+The first thing we need to consider is the information value and wthe associated weighting factor. When a pattern is presented to be classified at some point, the value associated witht eh color dimension will be sampled. If red is sampled, then the information would be positive since red is more closely associated with category A than B. If blue were sampled, then the information would be negative. This all depends on how informative each cue dimension is. Since this is all weighted anyways, we only really care about the relative information of each cue dimension, which we compute by computing the difference of positive examples over the total number of examples. The formulation is as follows:
+
 \begin{align}
     f_{ic,A}(x_s, x_A, x_B, i) &= 
         \begin{dcases}
@@ -486,7 +484,13 @@ where,
         \end{dcases}
 \end{align}
 
-$f_{ic,B}(x_s, x_A, x_B, i) = -f_{ic,A}(x_s, x_A, x_B, i)$
+The good part of this formulation is that relective, where the information that a stimula is associated with catefory a is more likely to be associated with category b is simply the negative of each other:
+
+\begin{align}
+f_{ic,B}(x_s, x_A, x_B, i) = -f_{ic,A}(x_s, x_A, x_B, i)
+\end{align}
+
+Formulation into evidence? This gives a rank-ordering model.
 
 To convert this rank-ordering model into a statistical one, we use a log-linear transformation to convert the relative associations into probabilities. Something about bayesian interpretation?
 
